@@ -51,6 +51,47 @@ def light_requirements():
     else:
         return 0
 	
-	
-	
+
+if __main___ == "__main__":
+	light_control() # light is turned off at begining
+	absence_time = 0 # initialize absence counter
+	user = State(datatype = "user", data = int(read_data("userlog.txt")))  # create user state instance
+    
+    try:
+    	while True:
+    		# if user absence, check the absence counter, if reaches 15 minutes, turn off the led
+    		if user.data == USER_ABSENCE: 
+    			if user.timeout < 900:
+    				absence_time = user.timeout + 5
+                    user.timeout = absence_time
+                    time.sleep(5)
+                    
+                elif user.timeout  >= 900:
+                light_control()
+                absence_time= 0
+                time.sleep(15)
+ 
+                else:
+                    print "Error in Sleep Mode"
+                    time.sleep(999999)
+			#if user presence, adjust the brightness from date of sensors
+            elif user.data == USER_PRESENCE: 
+                absence_time = 0
+                control = light_requirements()
+                light_control(control)
+ 
+            else:
+                print "Error in Reading Log File"
+             
+            data = int(read_data("userlog.txt"))
+            user.data = data
+			
+    except KeyboardInterrupt:
+    GPIO.cleanup()		
+    		
+    		
+    		
+    		
+    		
+    		
 	
