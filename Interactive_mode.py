@@ -18,3 +18,5 @@ def light_control(requirement = 0):
         time.sleep(5)
         
 if __name__ == "__main__":
+	print "what mode do you want:"
+	
