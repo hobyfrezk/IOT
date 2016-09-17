@@ -88,10 +88,3 @@ if __main___ == "__main__":
 			
     except KeyboardInterrupt:
     GPIO.cleanup()		
-    		
-    		
-    		
-    		
-    		
-    		
-	
