@@ -10,14 +10,6 @@ def read_data(filename):
 def ControlMode():
 	return read_data(modelog.txt)
 
-
-
-def
-
-
-
-def
-
 def main():
 	while true:
 		try:
@@ -27,6 +19,7 @@ def main():
 			elif controlMode == INTERACTIVEMODE:
 				interactivemode()
 				
-	
+if __name__ == "main":
+	main()
 
 	
