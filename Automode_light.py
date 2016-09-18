@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
-import time
+import datetime
+import update from thingspeak
 
 #WIRING SETTING
 LED = 4
@@ -13,10 +14,9 @@ class state:
 	def __init__(self, datatype, data):
 		self.type = str(datatype)
 		self.data = data
-		self.timeout = 0
+		self.time = datetime.datetime.now()
 		
-def update_data(data): # to be done(thingspeak)..
-	
+
 
 # used to control brightness of LED light
 def light_control(requirement = 0):
@@ -50,41 +50,26 @@ def light_requirements():
         return 10
     else:
         return 0
-	
 
-if __main___ == "__main__":
-	light_control() # light is turned off at begining
-	absence_time = 0 # initialize absence counter
+def automode():
 	user = State(datatype = "user", data = int(read_data("userlog.txt")))  # create user state instance
+	time = 0
+	
+	if user.data == USER_ABSENCE:
+		if time = 0:
+			1st_absence_time = datetime.datetime.now()
+		if (datetime.datetime.now() - 1st_absence_time).totalseconds() < 900:
+			pass
+		if (datetime.datetime.now() - 1st_absence_time).totalseconds() > 900:
+			light_control()
+		else:
+            print "Error in Sleep Mode"
     
-    try:
-    	while True:
-    		# if user absence, check the absence counter, if reaches 15 minutes, turn off the led
-    		if user.data == USER_ABSENCE: 
-    			if user.timeout < 900:
-    				absence_time = user.timeout + 5
-                    user.timeout = absence_time
-                    time.sleep(5)
-                    
-                elif user.timeout  >= 900:
-                light_control()
-                absence_time= 0
-                time.sleep(15)
- 
-                else:
-                    print "Error in Sleep Mode"
-                    time.sleep(999999)
-			#if user presence, adjust the brightness from date of sensors
-            elif user.data == USER_PRESENCE: 
-                absence_time = 0
-                control = light_requirements()
-                light_control(control)
- 
-            else:
-                print "Error in Reading Log File"
-             
-            data = int(read_data("userlog.txt"))
-            user.data = data
-			
-    except KeyboardInterrupt:
-    GPIO.cleanup()		
+	elif user.data == USER_PRESENCE: 
+        time = 0
+        control = light_requirements()
+        light_control(control)
+	
+    else:
+        print "Error in Reading Log File"
+	
