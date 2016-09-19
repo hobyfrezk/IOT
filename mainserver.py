@@ -13,6 +13,7 @@ def ControlMode():
 def main():
 	while true:
 		try:
+			ControlMode()
 			if controlMode == AUTOMODE:
 				automode()
 				
