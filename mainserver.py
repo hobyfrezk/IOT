@@ -13,11 +13,11 @@ def ControlMode():
 def main():
 	while true:
 		try:
-			ControlMode()
-			if controlMode == AUTOMODE:
+			control = ControlMode()
+			if control == AUTOMODE:
 				automode()
 				
-			elif controlMode == INTERACTIVEMODE:
+			elif control == INTERACTIVEMODE:
 				interactivemode()
 				
 if __name__ == "main":
