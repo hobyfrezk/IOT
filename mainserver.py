@@ -1,5 +1,7 @@
 AUTOMODE = 1
 INTERACTIVE = 2
+import automode from Automode_light 
+import interactivemode from Interactive_mode 
 
 
 # used to read log file in local, we only care about neweast data, so read last number of file
