@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import datetime
-import update from thingspeak
+from Interactive_mode import interactiveMode
 
 #WIRING SETTING
 LED = 4
@@ -79,7 +79,8 @@ def automode(index = 0):
 	
     else:
         print "Error in Reading Log File"
-        
+    time.sleep(3)
+    
     control = ControlMode()
     if control == AUTOMODE:
     	automode(index)
