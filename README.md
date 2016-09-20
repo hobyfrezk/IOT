@@ -1,9 +1,12 @@
-# IOT
+# IoT Assignment
 
 Introduction
 
-The system is develped for office useage, we provide "smart" function to make deskman have better light environment with minimum distraction from it.
+what: The system is develped for office useage, we provide "smart" function to make deskman have better light environment with minimum distraction from it.
 
+why:
+
+how:
 
 The whole project is made up of several parts
 
@@ -15,10 +18,13 @@ The whole project is made up of several parts
 
 2. software part
     - MQTT:
-        - Sensor publisher:
-        - Broker:
-        - Sensor receiver:
+        - Sensor publisher: Update sensor's data to broker
+        - Broker: despatch received data 
+        - Subscriber: Read data from broker and log to local
     - Control:
-        - Main control script
+        - Main control script: read local data and make decision every 3 seconds.
+
+
+
 
 
