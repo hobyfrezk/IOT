@@ -65,9 +65,9 @@ def automode(index = 0):
 		if index = 0:
 			index = 1
 			1st_absence_time = datetime.datetime.now()
-		if (datetime.datetime.now() - 1st_absence_time).totalseconds() < 900:
+		if (datetime.datetime.now()-1st_absence_time).totalseconds() < 900:
 			pass
-		if (datetime.datetime.now() - 1st_absence_time).totalseconds() > 900:
+		if (datetime.datetime.now()-1st_absence_time).totalseconds() > 900:
 			light_control()
 		else:
             print "Error in Sleep Mode"
