@@ -4,7 +4,7 @@ Introduction
 
 what: 
 
--The system is develped for office useage, we provide "smart" function to make deskman have better light environment with minimum distraction from it.
+- The system is develped for office useage, we provide "smart" function to make deskman have better light environment with minimum distraction from it.
 
 why:
 
