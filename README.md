@@ -17,6 +17,7 @@ how:
 - the system can automatically control the inside led brightness according to natural light it sensed, no human interference needed. But if the user want, of course, he/she can control the light by him/herself. 
 - the system also provide auto switch-on/off based on the user attendance.
 
+
 The whole project is made up of several parts
 
 1. hardware part
@@ -34,6 +35,19 @@ The whole project is made up of several parts
         - Main control script: read local data and make decision every 3 seconds.
 
 
+Working logic (pseudocode):
+
+    while Ture:
+        if mode = auto:
+            if USERPRESENCE:
+                adjustLED("natural light")
+            elif USERABSENCE:
+                if absenceTime > 15 mins
+                    turnOffLED()
+                if absenceTime < 15 mins
+                    pass
+        elif mode = manual:
+            adjustLED("user demand")
 
 
 
