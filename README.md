@@ -35,7 +35,7 @@ The whole project is made up of several parts:
         - Main control script: read local data and make decision every 3 seconds.
 
 
-Work flow logic (pseudocode):
+Main control work flow logic (pseudocode):
 
     while Ture:
         if mode = auto:
