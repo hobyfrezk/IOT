@@ -2,11 +2,20 @@
 
 Introduction
 
-what: The system is develped for office useage, we provide "smart" function to make deskman have better light environment with minimum distraction from it.
+what: 
+
+-The system is develped for office useage, we provide "smart" function to make deskman have better light environment with minimum distraction from it.
 
 why:
 
-how:
+- increase labour work effenciency
+- create a better working environment
+- electricity reduction
+
+how: 
+
+- the system can automatically control the inside led brightness according to natural light it sensed, no human interference needed. But if the user want, of course, he/she can control the light by him/herself. 
+- the system also provide auto switch-on/off based on the user attendance.
 
 The whole project is made up of several parts
 
