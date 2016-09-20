@@ -22,7 +22,7 @@ class state:
 
 # used to control brightness of LED light
 def light_control(requirement = 0):
-	GPIO.setwarings(False)
+    GPIO.setwarings(False)
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setup(LED, GPIO.OUT)
 	
