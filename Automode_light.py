@@ -13,7 +13,7 @@ INTERACTIVE = 3
 
 # state class declaration
 class state:
-	def __init__(self, datatype, data):
+    def __init__(self, datatype, data):
 		self.type = str(datatype)
 		self.data = data
 		self.time = datetime.datetime.now()
