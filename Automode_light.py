@@ -6,8 +6,10 @@ import update from thingspeak
 LED = 4
 
 
-USER_ABSENCE = 2
-USER_PRESENCE = 1
+USER_PRESENCE = 0
+USER_ABSENCE = 1
+AUTOMODE = 2
+INTERACTIVE = 3
 
 # state class declaration
 class state:
@@ -37,7 +39,7 @@ def read_data (filename):
     last_line = file(filename, "r").readlines()[-1]
     return int(last_line[27:])
 
-# brighter the natural light, the darker of our LED.
+# the function set how light the led should be, darker outside, brighter led.
 def light_requirements():
     light = read_data("lightlog.txt")
     if light  <100:
@@ -51,12 +53,17 @@ def light_requirements():
     else:
         return 0
 
-def automode():
+
+def ControlMode():
+	return read_data(modelog.txt)
+
+
+def automode(index = 0):
 	user = State(datatype = "user", data = int(read_data("userlog.txt")))  # create user state instance
-	time = 0
 	
 	if user.data == USER_ABSENCE:
-		if time = 0:
+		if index = 0:
+			index = 1
 			1st_absence_time = datetime.datetime.now()
 		if (datetime.datetime.now() - 1st_absence_time).totalseconds() < 900:
 			pass
@@ -66,10 +73,16 @@ def automode():
             print "Error in Sleep Mode"
     
 	elif user.data == USER_PRESENCE: 
-        time = 0
+        index = 0
         control = light_requirements()
         light_control(control)
 	
     else:
         print "Error in Reading Log File"
+        
+    control = ControlMode()
+    if control == AUTOMODE:
+    	automode(index)
+    elif control == INTERACTIVEMODE:
+    	interactivemode()
 	
