@@ -1,4 +1,10 @@
 # IOT
+
+Introduction
+
+The system is develped for office useage, we provide "smart" function to make deskman have better light environment with minimum distraction from it.
+
+
 The whole project is made up of several parts
 
 1. hardware part
