@@ -24,7 +24,7 @@ def light_control(requirement = 0):
         portLED.start(requirement)
 
         
-        
+    
 def interactiveMode():
 	print "Select mode:"
 	print "1. go back to auto mode"
@@ -33,12 +33,15 @@ def interactiveMode():
 	
 	command = raw_input()
 	if str(command) == str(1):
-		automode()
+		automode(index = 0)
 		
 	if str(command) == str(2):
 		print "Enter the brightness you want"
 		brightness = raw_iuput()
 		light_control(brightness)
+	
+	time.sleep(3)
+	ineractiveMode()
 		
 	
 	
