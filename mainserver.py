@@ -1,7 +1,7 @@
 AUTOMODE = 1
 INTERACTIVE = 2
-import automode from Automode_light 
-import interactivemode from Interactive_mode 
+from Automode_light import automode 
+from Interactive_mode import interactiveMode
 
 
 # used to read log file in local, we only care about neweast data, so read last number of file
@@ -13,7 +13,6 @@ def ControlMode():
 	return read_data(modelog.txt)
 
 def main():
-	while true:
 		try:
 			control = ControlMode()
 			if control == AUTOMODE:
@@ -21,7 +20,7 @@ def main():
 				
 			elif control == INTERACTIVEMODE:
 				interactivemode()
-				
+
 if __name__ == "main":
 	main()
 
