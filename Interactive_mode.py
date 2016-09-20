@@ -4,6 +4,12 @@ from Automode_light import automode
  
 LED = 4
 
+
+USER_PRESENCE = 0
+USER_ABSENCE = 1
+AUTOMODE = 2
+INTERACTIVE = 3
+
 def light_control(requirement = 0):
     print requirement
     GPIO.setwarnings(False)
@@ -14,8 +20,8 @@ def light_control(requirement = 0):
         GPIO.output(LED, 0)
          
     else: # control led brightness according to requirement
-        port4 = GPIO.PWM(LED, 100)
-        port4.start(requirement)
+        portLED = GPIO.PWM(LED, 100)
+        portLED.start(requirement)
 
         
         
@@ -34,7 +40,7 @@ def interactiveMode():
 		brightness = raw_iuput()
 		light_control(brightness)
 		
-	if str(command) == str(3):
+	
 	
 	
 	
