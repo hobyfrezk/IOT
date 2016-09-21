@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import datetime
 from Interactive_mode import interactiveMode
+from thingspeak import update
 
 #WIRING SETTING
 LED = 4
