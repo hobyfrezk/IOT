@@ -1,7 +1,8 @@
 import RPi.GPIO as GPIO
 import time
 from Automode_light import automode
- 
+from thingspeak import update
+
 LED = 4
 
 
