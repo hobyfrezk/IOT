@@ -4,29 +4,29 @@ Autonomous LED system
 
 1. what: 
 
-    - The system is develped for office useage, we provide "smart" function to make deskman have better light environment with minimum distraction from it.
+    - The system is develped for office useage, we try to provide "smart" function, making deskmans to  have a better light working environment and with minimum distraction from it.
 
 2. why:
 
-    - increase labour work effenciency
+    - Increase labour work effenciency
     - create a better working environment
-    - electricity reduction
+    - Electricity reduction
 
 3. how: 
 
-    - the system can automatically control the inside led brightness according to natural light it sensed, no human interference needed. But if the user want, of course, he/she can control the light by him/herself. 
-    - the system also provide auto switch-on/off based on the user attendance.
+    - The system can automatically control the inside led brightness according to natural light it sensed, no human interference needed. But if the user want, of course, he/she can control the light by him/herself. 
+    - The system also provide auto switch-on/off based on the user attendance.
 
 
 The whole project is made up of several parts:
 
-1. hardware part
+1. Hardware part
     - Respberry:
         - natural light sensor: Give response to natural light brightness.
         - motion sensor: Give response if the user is presense or not (simulated by a switch in this project).
         - switch: Switch to manual control mode.
 
-2. software part
+2. Software part
     - MQTT:
         - Sensor publisher: Update sensor's data to broker
         - Broker: despatch received data 
@@ -50,12 +50,12 @@ Main control work flow logic (pseudocode) and system introdction:
             adjustLED("user demand")
 
 
-1. Run 3 publishers and subscriber
-2. open main server.
-3. The system would start up with automode by default. The user can switch to interactive by press mode control button on breadboard.
-4. The user behavior and led working state will be transmitted to thingspeak channel as long as there is internet connection.
+1. Run 3 publishers and subscriber.
+2. Run main server.
+3. The system would set up with automode by default. The user can switch to interactive by press mode control button on the breadboard.
+4. The user behavior and led working state will be transmitted to thingspeak channel as long as there is internet connection automatically, for further work attendance analysis and electricty control.
     - User behavior includes: user absence/presence
-    - Led working state uncludes: 4 brightness and if LED is turned off.
+    - Led working state uncludes: 4 brightness of LED and if LED is turned off.
 
 
 
