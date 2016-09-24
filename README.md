@@ -50,4 +50,14 @@ Main control work flow logic (pseudocode):
             adjustLED("user demand")
 
 
+1. Run 3 publishers and subscriber
+2. open main server.
+3. The system would start up with automode by default. The user can switch to interactive by press mode control button on breadboard.
+4. The user behavior and led working state will be transmitted to thingspeak channel as long as there is internet connection.
+    - User behavior includes: user absence/presence
+    - Led working state uncludes: 4 brightness and if LED is turned off.
+
+
+
+
 
