@@ -1,6 +1,6 @@
 # IoT Assignment
 
-Introduction
+Autonomous LED system 
 
 1. what: 
 
@@ -35,7 +35,7 @@ The whole project is made up of several parts:
         - Main control script: read local data and make decision every 3 seconds.
 
 
-Main control work flow logic (pseudocode):
+Main control work flow logic (pseudocode) and system introdction:
 
     while Ture:
         if mode = auto:
