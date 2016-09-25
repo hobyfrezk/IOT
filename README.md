@@ -14,7 +14,7 @@ Autonomous LED system
 
 3. how: 
 
-    - The system can automatically control the inside led brightness according to natural light it sensed, no human interference needed. But if the user want, of course, he/she can control the light by him/herself. 
+    - The system can automatically control the inner led brightness according to natural light it sensed, no human interference needed. But if the user want, of course, he/she can control the light by him/herself. 
     - The system also provide auto switch-on/off based on the user attendance.
 
 
