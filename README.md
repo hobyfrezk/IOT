@@ -40,14 +40,14 @@ Main control work flow logic (pseudocode) and system introdction:
     while Ture:
         if mode = auto:
             if USERPRESENCE:
-                adjustLED("natural light")
+                adjustLED(natural light)
             elif USERABSENCE:
                 if absenceTime > 15 mins
                     turnOffLED()
                 if absenceTime < 15 mins
                     pass
         elif mode = manual:
-            adjustLED("user demand")
+            adjustLED(user demand)
 
 
 1. Run 3 publishers scripts and subscriber script.
