@@ -50,10 +50,11 @@ Main control work flow logic (pseudocode) and system introdction:
             adjustLED based on user selection
 
 
-1. Run 3 publishers scripts and subscriber script.
+1. Run publisher script and subscriber script.
 2. Run main server.
-3. The system would set up with automode by default. The user can switch to interactive by press mode control button on the breadboard.
-4. The user behavior and led working state will be transmitted to thingspeak channel as long as there is internet connection automatically, for further work attendance analysis and electricty control.
+3. Run thingspeak to enable data upload and json database update
+4. The system would set up with automode by default. The user can switch to interactive by press mode control button on the breadboard.
+5. The user behavior and led working state will be transmitted to thingspeak channel as long as there is internet connection automatically, for further work attendance analysis and electricty control.
     - User behavior includes: user absence/presence
     - Led working state uncludes: 4 brightness of LED and if LED is turned off.
 
