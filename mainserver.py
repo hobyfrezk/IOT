@@ -1,26 +1,17 @@
-from control import interactiveMode, autoMode
+from control import interactiveMode, autoMode, read_data, ControlMode
 import RPi.GPIO as GPIO
- 
- 
-USER_PRESENCE = 0
-USER_ABSENCE = 1
+import datetime
+
+
+USER_ABSENCE = 0
+USER_PRESENCE = 1
 AUTOMODE = 2
 INTERACTIVE = 3
- 
-flag = 0
-# used to read log file in local, we only care about neweast data, so read last number of file
-def read_data(filename):
-    last_line = file(filename, "r").readlines()[-1]
-    return int(last_line[27:])
- 
-def ControlMode():
-    return read_data("modelog.txt")
- 
- 
- 
+
 if __name__ == "__main__":
-    flag = 0
-    flag1 = 0
+    
+    flag = 0 #used to flag absencetime in automode
+    flag1 = 0 #used to flag automode text 
     try:
         while True:
             control = ControlMode()
@@ -28,10 +19,11 @@ if __name__ == "__main__":
                 if flag1 == 0:
                     flag1 = 1
                     print "You are woking in autoMode now"
-                autoMode()    
+                autoMode()
             else:
+                flag1 = 0
                 interactiveMode()
-             
- 
+        
+
     except KeyboardInterrupt:
         GPIO.cleanup()
