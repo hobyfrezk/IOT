@@ -1,0 +1,12 @@
+/sensor
+/sensor/PIR Motion sensor
+/sensor/PIR Motion sensor/#id
+
+/sensor/Natural light sensor
+/sensor/Natural light sensor/#id
+
+/sensor/switch button
+/sensor/switch button/#id  			#for user control
+
+/led
+/led/#id
