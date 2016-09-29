@@ -10,4 +10,5 @@
 /sensor/switch button/DeviceID  			#for user control
 
 /led
+/led/ZoneID/#
 /led/ZoneID/DeviceID
