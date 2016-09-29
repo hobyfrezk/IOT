@@ -4,6 +4,8 @@ import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
 import datetime
 import os
+from threading import Thread
+
 
 #IP = "169.254.205.192"
 IP = "192.168.1.178"
@@ -11,66 +13,152 @@ IP = "192.168.1.178"
 # In each zone, we have 1 lightsensor, 1 PIR sensor, but we may have multiple control buttons.
 DeviceID = "LED1"
 ZoneID = "ZoneA"
+timeoutTime = 900 # 15 minutes
 
 Automode = 0
 Manualmode = 1
 UserPresence = 2
 UserAbsence = 3
 
-class led(object):
-
-	def __init__(self, DeviceID = DeviceID, ZoneID = ZoneID, workingState = "0", AimIP = IP):
-		self.DeviceID = DeviceID
-		self.ZoneID = ZoneID
-		self.workingMode = Automode
-		self.workingState = workingState
-		self.AimIP = AimIP
-		self.client_id = "0000"+DeviceID
-
-	#update brightness by working as a publisher, only sent once  for each brightness change, so set QoS = 2
-	def updateBrightness(self)
-		publish.single(topic = "/led/"+self.ZoneID+"/"+self.DeviceID, payload={ "DeviceID" = self.DeviceID, "workingState" = slef.workingState}, qos=2, hostname=IP,
-           port=1883, client_id= self.client_id)
-
-
-	#TBD change led brightness on raspberry Pi
-	def setBrightness(self, brightness):
-		self.workingState = brightness
-		updateBrightness()
+class Lamp(object):
+	# workingMode = {"Automode", "InteractiveMode", "OFF" }
+	# workingState = {"0", "1", "2", "3", "4"}
+	def __init__(self, "ID" = DeviceID, "ZoneID" = ZoneID, "workingMode" = "OFF", "workingState" = "0", "timeout" = timeoutTime):
+		self.__ID = DeviceID
+		self.__ZoneID = ZoneID
+		self.__workingMode = "OFF"
+		self.__workingState = "0"
+		self.__timeout = timeoutTime
+		self.__lastUserPresenceTime = None
+		self.__naturalLight = None
 
 
 
-def on_connect(clientID, obj, flags, rc):
-    print ("rc: " + str(rc))
-    
+	def getID(self):
+		return self.__ID
 
-# TBD, test clientID is of subscriber or puublisher
+	def getZoneID(self):
+		return self.__ZoneID
+
+	def getWorkingMode(self):
+		return self.__workingMode
+
+	def getWorkingState(self):
+		return self.__workingState
+
+	def getTimeOut(self):
+		return self.__timeout
+
+	def getUserPresenceTime(self):
+		return self.__lastUserPresenceTime
+
+	def getNaturalLight(self):
+		return self.__naturalLight
+
+
+	def setWorkingMode(self, mode):
+		if mode in ["Automode", "InteractiveMode", "OFF"]:
+			self.__workingMode = mode
+			func(CHANGE OUTPUT IN RASPBERRYPI)
+
+		if self.__workingMode == mode:
+			print "the working mode has been set to %s correctly" %(mode)
+		else:
+			print "Error in setting working mode"
+		if self.__workingMode == "OFF":
+			self.setWorkingState("0")
+
+
+
+	def setWorkingState(self, state):
+		if state in ["0", "1", "2", "3", "4"]:
+			self.__workingState = state
+
+		if self.__workingState == state:
+			print "the working state has been changed to %s correctly" %(state)
+			func(CHANGE OUTPUT IN RASPBERRYPI)
+		else:
+			print "Error in setting working state"
+
+
+	def setUserPresence(self):
+		self.__lastUserPresenceTime = datetime.datetime.now()
+
+	def setNaturalLight(self, state):
+		self.__naturalLight = str(state)
+
+
+
+def on_connect(client, obj, flags, rc):
+    print ("client"+ client.data["ID"] + "connected")
+    subscriber.subscribe([("/sensor/light/%s/#" %(ZoneID),, 2), ("/sensor/button/%s/#" %(ZoneID), 2), 
+    	("/sensor/motion/%s/#" %(ZoneID), 2)])
+
 # the formate of msg is a dictionary	{"publisherID": number, "data": data}
-
-def on_message_light(clientID, obj, msg):
+def on_message_light(client, obj, msg):
 	print str(msg.topic) + " " + str(msg.payload)
+	client.control(client, "light", msg.payload)
 
-def on_message_button(clientID, obj, msg):
+def on_message_button(client, obj, msg):
 	print str(msg.topic) + " " + str(msg.payload)
+	client.control(client, "button", msg.payload)
 
 
-def on_message_motion(clientID, obj, msg):
+def on_message_motion(client, obj, msg):
 	print str(msg.topic) + " " + str(msg.payload)
+	client.control(client, "motion", msg.payload)
 
-def control():
+def control(client, topic, payload):
+	if topic = "light":
+		if client.data.getWorkingMode = "Automode":
+			if payload  <100:
+	        	client.data.setWorkingState(4) 
+		    elif payload< 800:
+		        client.data.setWorkingState(3) 
+		    elif payload  <1500:
+		        client.data.setWorkingState(2) 
+		    elif payload  <3000:
+		        client.data.setWorkingState(1) 
+		    else:
+		        client.data.setWorkingState(0) 
+			
+
+	elif topic = "motion":
+		client.data.setUserPresence(datetime.datetime.now())
+		if client.data.getWorkingMode = "Automode":
+			client.data.control(topic = "light", payload = client.data.getNaturalLight)
+
+	elif topic = "button":
+		client.data.setWorkingMode = payload
+
+
+def trigger():
+	if (datetime.datetime.now() - subscriber.data.getUserPresenceTime).totalseconds() < timeoutTime :
+		subscriber.data.setWorkingMode(OFF)
+
+
 
 
 subscriber = mqtt.Client(client_id = "0000"+DeviceID, clean_session=True)
 subscriber.on_connect = on_connect
-subscriber.message_callback_add("/sensor/light/"+ ZoneID, on_message_light)
-subscriber.message_callback_add("/sensor/button/"+ ZoneID +"/#", on_message_button)
-subscriber.message_callback_add("/sensor/motion/"+ ZoneID +"/#", on_message_motion)
+client.on_subscribe = on_subscribe
+
 subscriber.control = control
 
-subscriber.connect(IP, 1883, 60)
+# set callback function for each topics
+subscriber.message_callback_add("/sensor/light/%s/#"+ %(ZoneID), on_message_light)
+subscriber.message_callback_add("/sensor/button/%s/#" %(ZoneID), on_message_button)
+subscriber.message_callback_add("/sensor/motion/%s/#" %(ZoneID), on_message_motion)
 
-#subscribe to light, button and PIR sensor
-subscriber.subscribe([("/sensor/light/"+ZoneID+"/#", 0),("/sensor/button/"+ZoneID+"/#", 0),  ("/sensor/motion/"+ZoneID+"/#", 0)])
+# create a instance for data
+Led1 = Lamp
+subscriber.data = Led1
+
+subscriber.connect(IP, 1883, 60)
 subscriber.loop_forever()
 
+
+# create a thread to trigger user attendence
+s = Thread(target=trigger, args=())
+s.start()
 
