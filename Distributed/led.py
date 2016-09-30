@@ -32,8 +32,6 @@ class Lamp(object):
 		self.__lastUserPresenceTime = None
 		self.__naturalLight = None
 
-
-
 	def getID(self):
 		return self.__ID
 
@@ -94,7 +92,11 @@ def on_connect(client, obj, flags, rc):
     subscriber.subscribe([("/sensor/light/%s/#" %(ZoneID),, 2), ("/sensor/button/%s/#" %(ZoneID), 2), 
     	("/sensor/motion/%s/#" %(ZoneID), 2)])
 
-# the formate of msg is a dictionary	{"publisherID": number, "data": data}
+# the structure of msg is a dictionary	
+# for light sensor {"brightness": data}
+# for motion sensor {"detected time": time()}
+# for button {"mode": mode, "data": brightness/empty}
+
 def on_message_light(client, obj, msg):
 	print str(msg.topic) + " " + str(msg.payload)
 	client.control(client, "light", msg.payload)
@@ -129,7 +131,17 @@ def control(client, topic, payload):
 			client.data.control(topic = "light", payload = client.data.getNaturalLight)
 
 	elif topic = "button":
-		client.data.setWorkingMode = payload
+		if payload["mode"] == Automode:
+			client.data.setWorkingMode = "Automode"
+			client.data.control(topic = "light", payload = client.data.getNaturalLight)
+		elif  payload["mode"] == InteractiveMode:
+			client.data.setWorkingState = payload["data"]
+		else:
+			print "Wrong command"
+	else:
+		print "Wrong topic"
+				
+
 
 
 def trigger():
