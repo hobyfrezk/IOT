@@ -1,3 +1,27 @@
+MQTT topics structures:
+
+- /sensor/#
+
+- /sensor/ZoneID/motion/#
+- /sensor/ZoneID/motion/DeviceID/
+
+- /sensor/ZoneID/light/
+
+- /sensor/ZoneID/switchbutton/#
+- /sensor/ZoneID/switchbutton/DeviceID/
+
+- /led/#
+- /led/ZoneID/#
+- /led/ZoneID/DeviceID/#
+- /led/ZoneID/DeviceID/WorkState/
+
+payload structure:
+
+- light: (string number), brightness of natural light
+- motion: (time), time of motion detected
+- button: ("Automode") or (string number from 1 to 5)
+
+
 Led control Script
 
 1. How does it work
@@ -47,3 +71,17 @@ Led control Script
 
 
 THINGSPEAK 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
