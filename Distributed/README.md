@@ -60,9 +60,9 @@ Led control Script
 
 5. trigger function for sleep mode:
   - create a thread running in background
-    - compare current time with last user detected time(which received from PIR) 
-      - when the difference reaches 15 minutes 
-        - check user absence probability, if the result tends to user absence then turn off led (working state = 0)
+  - compare current time with last user detected time(which received from PIR) 
+  - when the difference reaches 15 minutes 
+  - check user absence probability, if the result tends to user absence then turn off led (working state = 0)
     
 
 
