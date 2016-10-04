@@ -1,6 +1,7 @@
 {
 	"Parameters": {
 		"IP": "192.168.1.178",
+		"thingspeak_key": "NXCLG7W3AQVRDBL1",
 		"TIMEOUT": 900,
 		"Automode": 0,
 		"Manualmode": 1,
