@@ -1,0 +1,19 @@
+{
+	"Parameters": {
+		"IP": "192.168.1.178",
+		"TIMEOUT": 900,
+		"Automode": 0,
+		"Manualmode": 1,
+		"UserPresence": 2,
+		"UserAbsence": 3
+	},
+
+	"DeviceID": {
+		"ZoneA": {
+			"led": ["led01", "led02", "led03", "led04"],
+			"PIR": "PIR01",
+			"Lightsensor": "LSensor01"
+		}
+	}
+
+}
