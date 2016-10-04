@@ -57,7 +57,11 @@ class state(object):
 				self.__WorkingState["Led01"], self.__WorkingState["Led02"], self.__WorkingState["Led03"], self.__WorkingState["Led04"]))
 		print f.read()
 		f.close()
-		
+
+def on_connect(client, obj, flags, rc):
+    print ("client"+ client.data["ID"] + " is connected")
+    # usbscriber all msg sent by light sensor and led., which light sensor gives us matural lightness and led
+    subscriber.subscribe([("/sensor/light/" + ZoneID, 2)("/led/"+ZoneID+"/#", 2)])
 #save comming message
 def on_message_led(client, obj, msg):
 	LedID = msg.topic[-5:]
@@ -67,10 +71,7 @@ def on_message_led(client, obj, msg):
 def on_message_light(client, obj, msg):
 	client.data.setState("naturalLight" = msg.payload)
 
-def on_connect(client, obj, flags, rc):
-    print ("client"+ client.data["ID"] + " is connected")
-    # usbscriber all msg sent by light sensor and led., which light sensor gives us matural lightness and led
-    subscriber.subscribe([("/sensor/light/" + ZoneID, 2)("/led/"+ZoneID+"/#", 2)])
+
 
 
 def updateThread(client):
