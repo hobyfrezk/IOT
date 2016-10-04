@@ -214,7 +214,7 @@ subscriber.message_callback_add("/sensor/button/%s/#" %(ZoneID), on_message_butt
 subscriber.message_callback_add("/sensor/motion/%s/#" %(ZoneID), on_message_motion)
 
 # create a property of a class Lamp to record data
-Led1 = Lamp
+Led1 = Lamp()
 subscriber.data = Led1
 
 # conntect to broker
