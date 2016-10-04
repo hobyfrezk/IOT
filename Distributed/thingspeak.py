@@ -7,23 +7,6 @@ import time
 key = NXCLG7W3AQVRDBL1
 ZoneID = "ZoneA"
 
-class Node(object):
-    def __init__(self, initdata):
-        self.__data = initdata
-        self.__next = None
-
-    def getData(self):
-        return self.__data
-
-    def getNext(self):
-        return self.__next
-
-    def setData(self, newdata):
-        self.__data = newdata
-
-    def setNext(self, newnext):
-        self.__next = newnext
-
 class state(object):
 	self.__NaturalLight = None
 	self.__WorkingState = {"Led01":None , "Led02":None ,"Led03":None ,"Led04":None }
