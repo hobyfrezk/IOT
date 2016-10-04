@@ -73,8 +73,22 @@ For each zone, there is one thinspeak server, the server update zone light and l
 For example, subscribe to topics like:
  - Led/ZoneID/DeviceID
  - NaturalLight/ZoneID/DeviceID
+ 
+Working flow:
 
+1. Subscribe topics and record received message into a dictionary:
 
+    {
+    
+    "NaturalLight": _______ , 
+    
+    "LedworkingState": { "Led01": ______ , "Led02": ______ ,"Led03": ______ ,"Led04": ______ }
+
+    }
+
+2. Add above dictionary into a buffer (set successor which is next upcoming state and will be defined when next subscribed message received.)
+
+3. Send first message in buffer to thingspeak channel
 
 
 
