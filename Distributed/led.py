@@ -162,44 +162,44 @@ def updateWorkingState():
 
 #control brightness by raspberry gpio port
 def light_control(requirement = 0):
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(12,GPIO.OUT)
-    GPIO.setup(16,GPIO.OUT)
-    GPIO.setup(21,GPIO.OUT)
-    GPIO.setup(23,GPIO.OUT)   
-    if requirement == 0:
-        GPIO.output(12,GPIO.LOW)
-        GPIO.output(16,GPIO.LOW)
-        GPIO.output(21,GPIO.LOW)
-        GPIO.output(23,GPIO.LOW)
+	GPIO.setwarnings(False)
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setup(12,GPIO.OUT)
+	GPIO.setup(16,GPIO.OUT)
+	GPIO.setup(21,GPIO.OUT)
+	GPIO.setup(23,GPIO.OUT)   
+	if requirement == 0:
+		GPIO.output(12,GPIO.LOW)
+		GPIO.output(16,GPIO.LOW)
+		GPIO.output(21,GPIO.LOW)
+		GPIO.output(23,GPIO.LOW)
 
-    elif requirement == 1:
-        GPIO.output(23,GPIO.HIGH)
-        GPIO.output(12,GPIO.LOW)
-        GPIO.output(16,GPIO.LOW)
-        GPIO.output(21,GPIO.LOW)
+	elif requirement == 1:
+		GPIO.output(23,GPIO.HIGH)
+		GPIO.output(12,GPIO.LOW)
+		GPIO.output(16,GPIO.LOW)
+		GPIO.output(21,GPIO.LOW)
         
-    elif requirement == 2:
-        GPIO.output(23,GPIO.HIGH)
-        GPIO.output(12,GPIO.HIGH)
-        GPIO.output(16,GPIO.LOW)
-        GPIO.output(21,GPIO.LOW)
+	elif requirement == 2:
+		GPIO.output(23,GPIO.HIGH)
+		GPIO.output(12,GPIO.HIGH)
+		GPIO.output(16,GPIO.LOW)
+		GPIO.output(21,GPIO.LOW)
         
         
-    elif requirement == 3:
-        GPIO.output(23,GPIO.HIGH)
-        GPIO.output(12,GPIO.HIGH)
-        GPIO.output(16,GPIO.HIGH)
-        GPIO.output(21,GPIO.LOW)
+	elif requirement == 3:
+		GPIO.output(23,GPIO.HIGH)
+		GPIO.output(12,GPIO.HIGH)
+		GPIO.output(16,GPIO.HIGH)
+		GPIO.output(21,GPIO.LOW)
         
-    elif requirement ==4:
-        GPIO.output(23,GPIO.HIGH)
-        GPIO.output(12,GPIO.HIGH)
-        GPIO.output(16,GPIO.HIGH)
-        GPIO.output(21,GPIO.HIGH)
-    else:
-    	print "WRONG COMMAND GIVEN"
+	elif requirement ==4:
+		GPIO.output(23,GPIO.HIGH)
+		GPIO.output(12,GPIO.HIGH)
+		GPIO.output(16,GPIO.HIGH)
+		GPIO.output(21,GPIO.HIGH)
+	else:
+    		print "WRONG COMMAND GIVEN"
 
 # Create a subscriber instance
 subscriber = mqtt.Client(client_id = "0000"+DeviceID, clean_session=True)
