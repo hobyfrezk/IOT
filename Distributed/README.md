@@ -82,11 +82,11 @@ Working flow:
 
 1. Subscribe topics and record received message into a class:
 
-    class.__NaturalLight = ____ 
+    class.__ NaturalLight = ____ 
     
-    class.__WorkingState = { "Led01": _____ , "Led02": _____ ,"Led03": _____ ,"Led04": _____ }
+    class.__ WorkingState = { "Led01": _____ , "Led02": _____ ,"Led03": _____ ,"Led04": _____ }
     
-    class.__Next = NextClass
+    class.__ Next = NextClass
 
 2. Add above class into a buffer (set successor which is next upcoming state and will be defined when next subscribed message received.)
 
