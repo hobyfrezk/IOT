@@ -86,7 +86,7 @@ Working flow:
     
     class.__WorkingState = { "Led01": _____ , "Led02": _____ ,"Led03": _____ ,"Led04": _____ }
     
-    class.__next = NextClass
+    class.__Next = NextClass
 
 2. Add above class into a buffer (set successor which is next upcoming state and will be defined when next subscribed message received.)
 
