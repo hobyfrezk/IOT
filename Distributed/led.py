@@ -88,9 +88,8 @@ class Lamp(object):
 
 # callback for connect function and subscribe topic from device in same zone
 def on_connect(client, obj, flags, rc):
-    print ("client"+ client.data["ID"] + " is connected")
-    subscriber.subscribe([("/sensor/light/%s/#" %(ZoneID), 2), ("/sensor/button/%s/#" %(ZoneID), 2), 
-    	("/sensor/motion/%s/#" %(ZoneID), 2)])
+	print ("client"+ client.data["ID"] + " is connected")
+	subscriber.subscribe([("/sensor/light/%s/#" %(ZoneID), 2), ("/sensor/button/%s/#" %(ZoneID), 2), ("/sensor/motion/%s/#" %(ZoneID), 2)])
 
 def on_message_light(client, obj, msg):
 	print "the natural brightness received is "+ str(msg.payload)
@@ -113,17 +112,17 @@ def control(client, topic, payload):
 	if topic = "light":
 		if client.data.getWorkingMode = "Automode":
 			if payload  <100:
-	        	client.data.setWorkingState(4) 
-		    elif payload< 800:
-		        client.data.setWorkingState(3) 
-		    elif payload  <1500:
-		        client.data.setWorkingState(2) 
-		    elif payload  <3000:
-		        client.data.setWorkingState(1) 
-		    else:
-		        client.data.setWorkingState(0) 
-		else:
-			pass
+	        		client.data.setWorkingState(4) 
+			elif payload< 800:
+		        	client.data.setWorkingState(3) 
+			elif payload  <1500:
+				client.data.setWorkingState(2) 
+			elif payload  <3000:
+				client.data.setWorkingState(1) 
+			else:
+				client.data.setWorkingState(0) 
+			else:
+				pass
 			
 
 	elif topic = "motion":
@@ -168,6 +167,7 @@ def light_control(requirement = 0):
 	GPIO.setup(16,GPIO.OUT)
 	GPIO.setup(21,GPIO.OUT)
 	GPIO.setup(23,GPIO.OUT)   
+	
 	if requirement == 0:
 		GPIO.output(12,GPIO.LOW)
 		GPIO.output(16,GPIO.LOW)
