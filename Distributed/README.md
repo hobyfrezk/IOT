@@ -78,16 +78,16 @@ For example, subscribe to topics like:
  
 Working flow:
 
-1. Subscribe topics and record received message into a dictionary:
 
-    {
+
+1. Subscribe topics and record received message into a class:
+
+    class.__NaturalLight = ____ 
     
-    "NaturalLight": _______ , 
+    class.__WorkingState = { "Led01": _____ , "Led02": _____ ,"Led03": _____ ,"Led04": _____ }
     
-    "LedworkingState": { "Led01": ______ , "Led02": ______ ,"Led03": ______ ,"Led04": ______ }
+    class.__next = NextClass
 
-    }
-
-2. Add above dictionary into a buffer (set successor which is next upcoming state and will be defined when next subscribed message received.)
+2. Add above class into a buffer (set successor which is next upcoming state and will be defined when next subscribed message received.)
 
 3. Send first message in buffer to thingspeak channel
