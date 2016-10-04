@@ -42,9 +42,9 @@ class state(object):
 		f.close()
 
 def on_connect(client, obj, flags, rc):
-    print ("client"+ client.data["ID"] + " is connected")
-    # usbscriber all msg sent by light sensor and led., which light sensor gives us matural lightness and led
-    subscriber.subscribe([("/sensor/light/" + ZoneID, 2)("/led/"+ZoneID+"/#", 2)])
+	print ("client"+ client.data["ID"] + " is connected")
+	# usbscriber all msg sent by light sensor and led., which light sensor gives us matural lightness and led
+	subscriber.subscribe([("/sensor/light/" + ZoneID, 2)("/led/"+ZoneID+"/#", 2)])
 #save comming message
 def on_message_led(client, obj, msg):
 	LedID = msg.topic[-5:]
