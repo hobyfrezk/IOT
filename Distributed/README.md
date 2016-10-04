@@ -1,3 +1,5 @@
+#MQTT
+
 MQTT topics structures:
 
 - /sensor/#
@@ -18,7 +20,7 @@ payload structure:
 - button: ("Automode") or (string number from 1 to 5)
 
 
-Led control Script
+#Led control
 
 1. How does it work
   - define a working property which includes information about environment brightness, currrent working mode and current working state and user attendence time.
@@ -66,7 +68,7 @@ Led control Script
 
 
 
-THINGSPEAK 
+#Thingspeak 
 
 For each zone, there is one thinspeak server, the server update zone light and led working statues on that zone to thingspeak channel.
 
@@ -89,15 +91,3 @@ Working flow:
 2. Add above dictionary into a buffer (set successor which is next upcoming state and will be defined when next subscribed message received.)
 
 3. Send first message in buffer to thingspeak channel
-
-
-
-
-
-
-
-
-
-
-
-
