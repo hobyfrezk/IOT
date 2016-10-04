@@ -5,20 +5,23 @@ import paho.mqtt.publish as publish
 import datetime
 import os
 from threading import Thread
+import json
+from pprint import pprint
 
 
-#IP = "169.254.205.192"
-IP = "192.168.1.178"
 
+with open('config.json') as data_file:    
+	data = json.load(data_file)
+
+IP = data["Parameters"]["IP"]
+timeoutTime = data["Parameters"]["TIMEOUT"] # 15 minutes
 # In each zone, we have 1 lightsensor, 1 PIR sensor, but we may have multiple control buttons.
-DeviceID = "LED1"
 ZoneID = "ZoneA"
-timeoutTime = 900 # 15 minutes
+DeviceID = data["DeviceID"]["ZoneA"]["led"][0]
+
 
 Automode = 0
 Manualmode = 1
-UserPresence = 2
-UserAbsence = 3
 
 class Lamp(object):
 	# workingMode = {"Automode", "InteractiveMode", "OFF" }
@@ -53,7 +56,6 @@ class Lamp(object):
 	def getNaturalLight(self):
 		return self.__naturalLight
 
-
 	def setWorkingMode(self, mode):
 		if mode in ["Automode", "InteractiveMode", "OFF"]:
 			self.__workingMode = mode
@@ -66,8 +68,6 @@ class Lamp(object):
 		if self.__workingMode == "OFF":
 			self.setWorkingState("0")
 
-
-
 	def setWorkingState(self, state):
 		if state in ["0", "1", "2", "3", "4"]:
 			self.__workingState = state
@@ -78,7 +78,6 @@ class Lamp(object):
 		else:
 			print "Error in setting working state"
 
-
 	def renewPresenceTime(self):
 		self.__lastUserPresenceTime = datetime.datetime.now()
 
@@ -86,7 +85,7 @@ class Lamp(object):
 		self.__naturalLight = str(state)
 
 
-# callback for connect function and subscribe topic from device in same zone
+# callback for on_connect function and subscribe topic from devices in the same zone
 def on_connect(client, obj, flags, rc):
 	print ("client"+ client.data["ID"] + " is connected")
 	subscriber.subscribe([("/sensor/light/%s/#" %(ZoneID), 2), ("/sensor/button/%s/#" %(ZoneID), 2), ("/sensor/motion/%s/#" %(ZoneID), 2)])
@@ -94,17 +93,17 @@ def on_connect(client, obj, flags, rc):
 def on_message_light(client, obj, msg):
 	print "the natural brightness received is "+ str(msg.payload)
 	client.setNaturalLight(msg.payload)
-	client.control(client, "light", msg.payload)
+	client.control(client, topic = "light", payload = msg.payload)
 
 
 def on_message_motion(client, obj, msg):
 	print "motion detected"
 	client.data.setUserPresence(datetime.datetime.now())
-	client.control(client, "motion", msg.payload)
+	client.control(client, topic = "motion", payload = msg.payload)
 
 
 def on_message_button(client, obj, msg):
-	client.control(client, "button", msg.payload)
+	client.control(client, topic = "button", payload = msg.payload)
 
 
 
