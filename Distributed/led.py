@@ -157,7 +157,7 @@ def trigger():
 def updateWorkingState():
 	while True:
 		publish.single("/led/"+ZoneID+"/"+DeviceID+"/WorkState", client.data.getWorkingState, hostname=IP)
-		time.sleep(20)
+		time.sleep(15)
 
 
 #control brightness by raspberry gpio port
@@ -199,7 +199,7 @@ def light_control(requirement = 0):
 		GPIO.output(16,GPIO.HIGH)
 		GPIO.output(21,GPIO.HIGH)
 	else:
-    		print "WRONG COMMAND GIVEN"
+		print "WRONG COMMAND GIVEN"
 
 # Create a subscriber instance
 subscriber = mqtt.Client(client_id = "0000"+DeviceID, clean_session=True)
