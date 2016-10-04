@@ -54,9 +54,6 @@ def on_message_led(client, obj, msg):
 def on_message_light(client, obj, msg):
 	client.data.setState("naturalLight" = msg.payload)
 
-
-
-
 def updateThread(client):
 	client.data.update()
 	time.sleep(15)
