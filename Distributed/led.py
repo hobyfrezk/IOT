@@ -23,12 +23,12 @@ UserAbsence = 3
 class Lamp(object):
 	# workingMode = {"Automode", "InteractiveMode", "OFF" }
 	# workingState = {"0", "1", "2", "3", "4"}
-	def __init__(self, "ID" = DeviceID, "ZoneID" = ZoneID, "workingMode" = "OFF", "workingState" = "0", "timeout" = timeoutTime):
-		self.__ID = DeviceID
+	def __init__(self, ID = DeviceID, ZoneID = ZoneID, workingMode = "OFF", workingState = "0", timeout = timeoutTime):
+		self.__ID = ID
 		self.__ZoneID = ZoneID
-		self.__workingMode = "OFF"
-		self.__workingState = "0"
-		self.__timeout = timeoutTime
+		self.__workingMode = workingMode
+		self.__workingState = workingState
+		self.__timeout = timeout
 		self.__lastUserPresenceTime = None
 		self.__naturalLight = None
 
@@ -57,12 +57,12 @@ class Lamp(object):
 	def setWorkingMode(self, mode):
 		if mode in ["Automode", "InteractiveMode", "OFF"]:
 			self.__workingMode = mode
-			func(CHANGE OUTPUT IN RASPBERRYPI)
 
 		if self.__workingMode == mode:
 			print "the working mode has been set to %s correctly" %(mode)
 		else:
 			print "Error in setting working mode"
+
 		if self.__workingMode == "OFF":
 			self.setWorkingState("0")
 
@@ -74,41 +74,40 @@ class Lamp(object):
 
 		if self.__workingState == state:
 			print "the working state has been changed to %s correctly" %(state)
-			func(CHANGE OUTPUT IN RASPBERRYPI)
+			light_control(state)
 		else:
 			print "Error in setting working state"
 
 
-	def setUserPresence(self):
+	def renewPresenceTime(self):
 		self.__lastUserPresenceTime = datetime.datetime.now()
 
 	def setNaturalLight(self, state):
 		self.__naturalLight = str(state)
 
 
-
+# callback for connect function and subscribe topic from device in same zone
 def on_connect(client, obj, flags, rc):
-    print ("client"+ client.data["ID"] + "connected")
-    subscriber.subscribe([("/sensor/light/%s/#" %(ZoneID),, 2), ("/sensor/button/%s/#" %(ZoneID), 2), 
+    print ("client"+ client.data["ID"] + " is connected")
+    subscriber.subscribe([("/sensor/light/%s/#" %(ZoneID), 2), ("/sensor/button/%s/#" %(ZoneID), 2), 
     	("/sensor/motion/%s/#" %(ZoneID), 2)])
 
-# the structure of msg is a dictionary	
-# for light sensor {"brightness": data}
-# for motion sensor {"detected time": time()}
-# for button {"mode": mode, "data": brightness/empty}
-
 def on_message_light(client, obj, msg):
-	print str(msg.topic) + " " + str(msg.payload)
+	print "the natural brightness received is "+ str(msg.payload)
+	client.setNaturalLight(msg.payload)
 	client.control(client, "light", msg.payload)
-
-def on_message_button(client, obj, msg):
-	print str(msg.topic) + " " + str(msg.payload)
-	client.control(client, "button", msg.payload)
 
 
 def on_message_motion(client, obj, msg):
-	print str(msg.topic) + " " + str(msg.payload)
+	print "motion detected"
+	client.data.setUserPresence(datetime.datetime.now())
 	client.control(client, "motion", msg.payload)
+
+
+def on_message_button(client, obj, msg):
+	client.control(client, "button", msg.payload)
+
+
 
 def control(client, topic, payload):
 	if topic = "light":
@@ -123,19 +122,24 @@ def control(client, topic, payload):
 		        client.data.setWorkingState(1) 
 		    else:
 		        client.data.setWorkingState(0) 
+		else:
+			pass
 			
 
 	elif topic = "motion":
-		client.data.setUserPresence(datetime.datetime.now())
 		if client.data.getWorkingMode = "Automode":
 			client.data.control(topic = "light", payload = client.data.getNaturalLight)
 
+
 	elif topic = "button":
-		if payload["mode"] == Automode:
-			client.data.setWorkingMode = "Automode"
+		if payload == "autoMode":
+			print "You are switching to autoMode"
+			client.data.setWorkingMode("Automode")
 			client.data.control(topic = "light", payload = client.data.getNaturalLight)
-		elif  payload["mode"] == InteractiveMode:
-			client.data.setWorkingState = payload["data"]
+		elif payload in ["1", "2", "3", "4", "0"]:
+			client.data.setWorkingMode("InteractiveMode")
+			print "You are switching to interactiveMode, the working level is %s" %(payload)
+			client.data.setWorkingState(int(payload))
 		else:
 			print "Wrong command"
 	else:
@@ -143,34 +147,84 @@ def control(client, topic, payload):
 				
 
 
-
+# used to trigger if user absence time beyond 15 minutes
 def trigger():
-	if (datetime.datetime.now() - subscriber.data.getUserPresenceTime).totalseconds() < timeoutTime :
-		subscriber.data.setWorkingMode(OFF)
+	while True:
+		if (datetime.datetime.now() - subscriber.data.getUserPresenceTime).totalseconds() < timeoutTime:
+			subscriber.data.setWorkingState(0)
+
+# used to publish working state to thingspeak so can be logged to internet
+def updateWorkingState():
+	while True:
+		publish.single("/led/"+ZoneID+"/"+DeviceID+"/WorkState", client.data.getWorkingState, hostname=IP)
+		time.sleep(20)
 
 
+#control brightness by raspberry gpio port
+def light_control(requirement = 0):
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(12,GPIO.OUT)
+    GPIO.setup(16,GPIO.OUT)
+    GPIO.setup(21,GPIO.OUT)
+    GPIO.setup(23,GPIO.OUT)   
+    if requirement == 0:
+        GPIO.output(12,GPIO.LOW)
+        GPIO.output(16,GPIO.LOW)
+        GPIO.output(21,GPIO.LOW)
+        GPIO.output(23,GPIO.LOW)
 
+    elif requirement == 1:
+        GPIO.output(23,GPIO.HIGH)
+        GPIO.output(12,GPIO.LOW)
+        GPIO.output(16,GPIO.LOW)
+        GPIO.output(21,GPIO.LOW)
+        
+    elif requirement == 2:
+        GPIO.output(23,GPIO.HIGH)
+        GPIO.output(12,GPIO.HIGH)
+        GPIO.output(16,GPIO.LOW)
+        GPIO.output(21,GPIO.LOW)
+        
+        
+    elif requirement == 3:
+        GPIO.output(23,GPIO.HIGH)
+        GPIO.output(12,GPIO.HIGH)
+        GPIO.output(16,GPIO.HIGH)
+        GPIO.output(21,GPIO.LOW)
+        
+    elif requirement ==4:
+        GPIO.output(23,GPIO.HIGH)
+        GPIO.output(12,GPIO.HIGH)
+        GPIO.output(16,GPIO.HIGH)
+        GPIO.output(21,GPIO.HIGH)
+    else:
+    	print "WRONG COMMAND GIVEN"
 
+# Create a subscriber instance
 subscriber = mqtt.Client(client_id = "0000"+DeviceID, clean_session=True)
 subscriber.on_connect = on_connect
 client.on_subscribe = on_subscribe
 
 subscriber.control = control
 
-# set callback function for each topics
+# set callback function for each topics that matters
 subscriber.message_callback_add("/sensor/light/%s/#"+ %(ZoneID), on_message_light)
 subscriber.message_callback_add("/sensor/button/%s/#" %(ZoneID), on_message_button)
 subscriber.message_callback_add("/sensor/motion/%s/#" %(ZoneID), on_message_motion)
 
-# create a instance for data
+# create a property of a class Lamp to record data
 Led1 = Lamp
 subscriber.data = Led1
 
+# conntect to broker
 subscriber.connect(IP, 1883, 60)
-subscriber.loop_forever()
 
-
-# create a thread to trigger user attendence
-s = Thread(target=trigger, args=())
+# create a thread to trigger user attendence and a publisher for sending working state
+s = Thread(target = trigger, args = ())
 s.start()
+t = Thread(target = updateWorkingState, args = ())
+t.start()
 
+# start subscriber
+subscriber.loop_forever()
