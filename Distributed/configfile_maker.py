@@ -1,9 +1,15 @@
+
 import json
 
-mqtt = {'ip_address': '192.168.1.178', 
-		'topicname': }
+config = {'mqtt': {'ip_address': '192.168.1.178'}, 
+	  'thingspeak': {'thingspeak_key': 'NXCLG7W3AQVRDBL1'},
+	  'mode': {'Automode': '0', 'Manualmode': '1'},
+	  'zone': ['ZoneA', 'ZoneB', 'ZoneC'],
+	  'device': {'led': ['led01', 'led02', 'led03', 'led04'],
+		     'PIR': 'PIR01',
+		     'Lightsensor': 'LSensor01'}
+	 }
 
-config = {'key1': 'value1', 'key2': 'value2'}
 
 with open('config.json', 'w') as f:
     json.dump(config, f)
