@@ -1,6 +1,6 @@
 {
 	"Parameters": {
-		"IP": "192.168.1.178",
+		"IP": "192.168.1.90",
 		"thingspeak_key": "NXCLG7W3AQVRDBL1",
 		"TIMEOUT": 900,
 		"Automode": 0,
@@ -10,9 +10,26 @@
 	"DeviceID": {
 		"ZoneA": {
 			"led": ["led01", "led02", "led03", "led04"],
-			"PIR": "PIR01",
-			"Lightsensor": "LSensor01"
-		}
-	}
+			"PIR": ["PIR01"],
+			"Lightsensor": ["LSensor01"],
+			"Button": ["button01"]
 
+		}
+	},
+
+	"LightSensor": {
+		"address": "0x39",
+		"control_on": "0x03",
+		"control_off": "0x00"
+	},
+
+	"Brightness": {
+		"lowNaturalBrightness": "100",
+		"MLowNaturalBrightness": "800",
+		"MHighNaturalBrightness": "1500",
+		"HighNaturalBrightness": "3000"
+	}
 }
+
+
+

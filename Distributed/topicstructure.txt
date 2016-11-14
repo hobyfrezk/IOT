@@ -1,0 +1,17 @@
+/sensor
+
+/sensor/ZoneID/motion/#
+/sensor/ZoneID/motion/DeviceID
+
+/sensor/ZoneID/light/#
+/sensor/ZoneID/light/DeviceID
+
+/sensor/ZoneID/button/#
+/sensor/ZoneID/button/DeviceID  
+
+/led
+/led/ZoneID/#
+/led/ZoneID/DeviceID/#
+/led/ZoneID/DeviceID/WorkState
+/led/ZoneID/DeviceID/WorkMode
+
