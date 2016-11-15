@@ -16,8 +16,8 @@ with open('config.json') as data_file:
 IP = config["mqtt"]["ip_address"]
 timeoutTime = config["sleep_timeout"] # 15 minutes
 
-zoneID = config["zone"][1].key()[0]
-DeviceID = config["device"]["LED"][zoneID][0]
+ZoneID = config["zone"][1].key()[0]
+LEDID = config["device"]["LED"][zoneID][0]
 PIRID = config["device"]["PIR"][zoneID][0]
 buttonDeviceID = config["device"]["button"][zoneID][0]
 LEDDeviceID = config["device"]["Lightsensor"][zoneID][0]
