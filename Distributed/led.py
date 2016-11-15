@@ -11,25 +11,20 @@ import RPi.GPIO as GPIO
 
 
 with open('config.json') as data_file:    
-	data = json.load(data_file)
+	config = json.load(data_file)
 
-IP = data["Parameters"]["IP"]
-timeoutTime = data["Parameters"]["TIMEOUT"] # 15 minutes
+IP = config["mqtt"]["ip_address"]
+timeoutTime = config["sleep_timeout"] # 15 minutes
 
-zoneID = data["DeviceID"].key()[0]
-DeviceID = data["DeviceID"][zoneID]["led"][0]
-motionDeviceID = data["DeviceID"][zoneID]["PIR"][0]
-buttonDeviceID = data["DeviceID"][zoneID]["Button"][0]
-LEDDeviceID = data["DeviceID"][zoneID]["Lightsensor"][0]
+zoneID = config["zone"][1].key()[0]
+DeviceID = config["device"]["LED"][zoneID][0]
+PIRID = config["device"]["PIR"][zoneID][0]
+buttonDeviceID = config["device"]["button"][zoneID][0]
+LEDDeviceID = config["device"]["Lightsensor"][zoneID][0]
 
-lowNaturalBrightness = data["Brightness"]["lowNaturalBrightness"]
-MLowNaturalBrightness = data["Brightness"]["MLowNaturalBrightness"]
-MHighNaturalBrightness = data["Brightness"]["MHighNaturalBrightness"]
-HighNaturalBrightness = data["Brightness"]["HighNaturalBrightness"]
+brightnessSetting = config['lamp_luminance']
 
 class Lamp(object):
-	# workingMode = {"Automode", "InteractiveMode", "OFF" }
-	# workingState = {"0", "1", "2", "3", "4"}
 	def __init__(self, ID = DeviceID, ZoneID = ZoneID, workingMode = "Automode", workingState = "0", timeout = timeoutTime):
 		self.__ID = ID
 		self.__ZoneID = ZoneID
