@@ -49,9 +49,9 @@ class Lamp(object):
             print "brightness out of range"    
             
     def renewPresenceTime(self):
-	self.__lastUserPresenceTime = datetime.datetime.now()
- 
-def setNaturalLight(self, state):
+		self.__lastUserPresenceTime = datetime.datetime.now()
+		
+	def setNaturalLight(self, state):
         self.__naturalLight = str(state)
 		
 		
