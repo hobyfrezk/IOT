@@ -4,7 +4,7 @@ import json
 
 config = {'mqtt': {'ip_address': '192.168.1.178'}, 
 	  'thingspeak': {'thingspeak_key': 'NXCLG7W3AQVRDBL1'},
-	  'status_index': {'Off':'0', 'Automode': '1', 'Manualmode': '2'},
+	  'state_index': {'Off':'0', 'Automode': '1', 'Manualmode': '2'},
 	  'sleep_timeout': '900' ,
 	  'zone': [{'ZoneA': 'activated'}],
 	  'device': {'LED': {'ZoneA': ['LED01']},
