@@ -51,7 +51,7 @@ class Lamp(object):
     def renewPresenceTime(self):
 	self.__lastUserPresenceTime = datetime.datetime.now()
  
-	def setNaturalLight(self, state):
+def setNaturalLight(self, state):
         self.__naturalLight = str(state)
 		
 		
