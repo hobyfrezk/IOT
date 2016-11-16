@@ -1,12 +1,12 @@
 class Lamp(object):
     def __init__(self, ID = LEDID, ZoneID = ZoneID, workingState = Off, timeout = timeoutTime):
-            self.__ID = LEDID
-            self.__ZoneID = ZoneID
-            self.__workingState = workingState
-            self.__brightness = None
-            self.__timeout = timeout
-            self.__lastUserPresenceTime = None
-            self.__naturalLight = None
+    	self.__ID = LEDID
+		self.__ZoneID = ZoneID
+		self.__workingState = workingState
+		self.__brightness = None
+		self.__timeout = timeout
+		self.__lastUserPresenceTime = None
+		self.__naturalLight = None
 		
     def getID(self):
         return self.__ID
@@ -15,7 +15,7 @@ class Lamp(object):
         return self.__ZoneID
 
     def getWorkingMode(self):
-	return self.__workingMode
+		return self.__workingMode
 
     def getWorkingState(self):
         return self.__workingState
