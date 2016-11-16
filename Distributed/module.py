@@ -1,6 +1,6 @@
 class Lamp(object):
 	def __init__(self, ID = LEDID, ZoneID = ZoneID, workingState = Off, timeout = timeoutTime):
-    		self.__ID = LEDID
+		self.__ID = LEDID
 		self.__ZoneID = ZoneID
 		self.__workingState = workingState
 		self.__brightness = None
