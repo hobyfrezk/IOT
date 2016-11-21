@@ -16,6 +16,7 @@ def openconfig():
     with open('config.json', 'r') as data_file:    
         return yaml.safe_load(data_file)
 
+# return device info as matrix form for each zone
 def deviceMatrix(config):       
     ActivatedZone = config['zone']['Activated']
     device = config['device'].keys() 
