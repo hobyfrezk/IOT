@@ -1,0 +1,24 @@
+{
+	"DeviceID": {
+		"zone3": ["node1"],
+		"zone2": ["node1"],
+		"zone1": ["node1"],
+		"zone4": ["node1"]
+	},
+
+	"Parameters": {
+		"Automode": 0,
+		"IP": "localhost",
+		"port": "1883",
+		"TIMEOUT": 900,
+		"thingspeak_key": "NXCLG7W3AQVRDBL1",
+		"Manualmode": 1
+	},
+	
+	"Brightness": {
+		"lowNaturalBrightness": "100",
+		"MHighNaturalBrightness": "1500",
+		"MLowNaturalBrightness": "800",
+		"HighNaturalBrightness": "3000"
+	}
+}
